@@ -1,0 +1,14 @@
+
+# Python
+__pycache__
+*.py[cod]
+
+# PyCharm
+/.idea/
+/*.iml
+
+# Test Input
+test.js
+
+# site-packages
+/site-packages/
