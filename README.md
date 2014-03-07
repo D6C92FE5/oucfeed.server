@@ -24,6 +24,7 @@ OUC Feed - Server
 
 * [CherryPy](http://www.cherrypy.org/)
 * [WebHelpers](http://sluggo.scrapping.cc/python/WebHelpers/)
+* [PyMongo](https://pypi.python.org/pypi/pymongo/)
 
 
 许可证

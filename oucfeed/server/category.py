@@ -5,31 +5,30 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 import cherrypy
 from cherrypy import request, response
 
-from oucfeed.server import db
+from oucfeed.server.datastore import datastore
 
 
-class Category(object):
+class CategoryPage(object):
 
     exposed = True
 
     @cherrypy.tools.json_out()
     def GET(self):
-        return db.get_category()
+        return datastore.get_category()
 
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
     def POST(self):
-        db.set_category(request.json)
+        datastore.set_category(request.json)
         return {}
 
 
 def add(category_iter):
-    category_dict = db.get_category()
+    category_dict = datastore.get_category()
     for category in category_iter:
         category_node = category_dict
         for part in category:
             if part not in category_node:
                 category_node[part] = {}
             category_node = category_node[part]
-    db.set_category(category_dict)
-
+    datastore.set_category(category_dict)

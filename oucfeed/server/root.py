@@ -4,10 +4,8 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 
 import cherrypy
 
-from oucfeed.server import db
 
-
-class Root(object):
+class RootPage(object):
 
     exposed = True
 

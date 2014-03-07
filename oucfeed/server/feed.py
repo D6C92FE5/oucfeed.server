@@ -8,7 +8,7 @@ import cherrypy
 from cherrypy import request, response
 from webhelpers import feedgenerator
 
-from oucfeed.server import db, util, news
+from oucfeed.server import util, news
 
 
 feed_generators = {
@@ -16,7 +16,7 @@ feed_generators = {
     'rss': feedgenerator.Rss201rev2Feed,
 }
 
-class Feed(object):
+class FeedPage(object):
 
     exposed = True
 

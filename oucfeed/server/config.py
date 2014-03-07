@@ -6,7 +6,7 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 import os
 
 
-SQLITE_PATH = None
+DATASTORE_URI = "mongodb://localhost:27017/"
 
 GAE = "APPLICATION_ID" in os.environ
 

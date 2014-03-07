@@ -2,16 +2,16 @@
 
 from __future__ import division, absolute_import, print_function, unicode_literals
 
-from collections import OrderedDict
 from itertools import islice
 
 import cherrypy
 from cherrypy import request, response
 
-from oucfeed.server import db, util, category, profile
+from oucfeed.server import util, category, profile
+from oucfeed.server.datastore import datastore
 
 
-class News(object):
+class NewsPage(object):
 
     exposed = True
 
@@ -28,29 +28,21 @@ class News(object):
         return {}
 
 
-def add(news_iter):
-    history = db.get_news_history()
+def add(news_list):
+    history = datastore.get_news_history()
 
-    news_new = OrderedDict()
-    for item in news_iter:
-        if item['id'] not in history:
-            news_new[item['id']] = item
-    for news in news_new.itervalues():
-        news['category'] = tuple(news['category'].split("/"))
+    news_list = [x for x in news_list if x['id'] not in history]
+    for item in news_list:
+        item['category'] = item['category'].split("/")
+        history.add(item['id'])
 
-    history.update(news_new.iterkeys())
-    db.set_news_history(history)
-
-    news = db.get_news()
-    news.extend(news_new.itervalues())
-    db.set_news(news[-1000:])
-
-    category.add(x['category'] for x in news_new.itervalues())
+    datastore.add_news(news_list)
+    datastore.set_news_history(history)
+    category.add(x['category'] for x in news_list)
 
 
 def filtered_by_profile(profile_id):
-    profile_ = db.get_profile(profile_id)
-    for news in reversed(db.get_news()):
+    profile_ = profile.get_by_id(profile_id)
+    for news in reversed(datastore.get_news()):
         if profile_id == 'all' or profile.match(profile_, news['category']):
             yield news
-
