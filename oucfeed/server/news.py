@@ -29,7 +29,7 @@ class NewsPage(object):
 
 
 def add(news_list):
-    history = datastore.get_news_history()
+    history = datastore.get_history()
 
     news_list = [x for x in news_list if x['id'] not in history]
     for item in news_list:
@@ -37,7 +37,7 @@ def add(news_list):
         history.add(item['id'])
 
     datastore.add_news(news_list)
-    datastore.set_news_history(history)
+    datastore.set_history(history)
     category.add(x['category'] for x in news_list)
 
 

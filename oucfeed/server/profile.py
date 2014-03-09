@@ -21,7 +21,7 @@ class ProfilePage(object):
     @cherrypy.tools.json_out()
     def POST(self):
         profile_id = generate_profile_id(request.json)
-        datastore.set_profile(profile_id, request.json)
+        datastore.set_profile_by_id(profile_id, request.json)
         return {'id': profile_id}
 
 
