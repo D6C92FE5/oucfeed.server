@@ -14,7 +14,7 @@ from oucfeed.server.feed import FeedPage
 
 
 config = {
-    '/': {
+    b'/': {
         'response.headers.Access-Control-Allow-Origin': "*",  # CORS
         'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
         'tools.cors.on': True,

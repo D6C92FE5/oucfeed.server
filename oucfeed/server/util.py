@@ -34,3 +34,9 @@ def parse_output_count(string):
 
 def parse_datetime(datetime_string):
     return datetime.strptime(datetime_string, "%Y-%m-%d %H:%M:%S")
+
+
+def remove_mongodb_id(items):
+    for item in items:
+        del item['_id']
+        yield item

@@ -16,9 +16,9 @@ class NewsPage(object):
     exposed = True
 
     @cherrypy.tools.json_out()
-    def GET(self, id_='all', count=None):
+    def GET(self, profile_id='all', count=None):
         count = util.parse_output_count(count)
-        news = islice(filtered_by_profile(id_), count)
+        news = islice(util.remove_mongodb_id(filtered_by_profile(profile_id)), count)
         return list(news)
 
     @cherrypy.tools.json_in()
@@ -43,6 +43,6 @@ def add(news_list):
 
 def filtered_by_profile(profile_id):
     profile_ = profile.get_by_id(profile_id)
-    for news in reversed(datastore.get_news()):
+    for news in datastore.get_news():
         if profile_id == 'all' or profile.match(profile_, news['category']):
             yield news

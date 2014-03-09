@@ -16,12 +16,6 @@ class CategoryPage(object):
     def GET(self):
         return datastore.get_category()
 
-    @cherrypy.tools.json_in()
-    @cherrypy.tools.json_out()
-    def POST(self):
-        datastore.set_category(request.json)
-        return {}
-
 
 def add(category_iter):
     category_dict = datastore.get_category()

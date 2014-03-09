@@ -2,9 +2,6 @@
 
 from __future__ import division, absolute_import, print_function, unicode_literals
 
-import json
-import hashlib
-
 import cherrypy
 from cherrypy import request, response
 
@@ -17,22 +14,22 @@ class ProfilePage(object):
     exposed = True
 
     @cherrypy.tools.json_out()
-    def GET(self, id_):
-        return get_by_id(id_)
+    def GET(self, profile_id):
+        return get_by_id(profile_id)
 
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
     def POST(self):
-        id_ = generate_profile_id(request.json)
-        datastore.set_profile(id_, request.json)
-        return {'id': id_}
+        profile_id = generate_profile_id(request.json)
+        datastore.set_profile(profile_id, request.json)
+        return {'id': profile_id}
 
 
 generate_profile_id = util.json_sha1_base64
 
 
 def get_by_id(profile_id):
-    return datastore.get_profile(profile_id)
+    return datastore.get_profile_by_id(profile_id)
 
 
 def match(profile, category):

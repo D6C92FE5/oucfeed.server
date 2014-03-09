@@ -8,7 +8,7 @@ class BaseDatastore(object):
     def __init__(self):
         raise NotImplementedError()
 
-    def _select(self, table, where=None):
+    def _select(self, table, where=None, **kwargs):
         raise NotImplementedError()
 
     def _insert_or_update(self, table, item):
