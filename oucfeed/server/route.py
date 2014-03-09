@@ -2,6 +2,8 @@
 
 from __future__ import division, absolute_import, print_function, unicode_literals
 
+import os
+
 import cherrypy
 
 from oucfeed.server import cors  # 初始化 CORS
@@ -18,6 +20,10 @@ config = {
         'response.headers.Access-Control-Allow-Origin': "*",  # CORS
         'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
         'tools.cors.on': True,
+    },
+    b'/oucfeed.js': {
+        'tools.staticfile.on': True,
+        'tools.staticfile.filename': os.path.abspath("oucfeed.js"),
     },
 }
 
