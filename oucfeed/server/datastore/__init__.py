@@ -7,7 +7,8 @@ from oucfeed.server.datastore.mongodb import MongodbDatastore
 from oucfeed.server.datastore.gae import NdbDatastore
 
 
-Datastore = MongodbDatastore
-if config.GAE:
+if config.PLATFORM == "GAE":
     Datastore = NdbDatastore
+else:
+    Datastore = MongodbDatastore
 datastore = Datastore()
