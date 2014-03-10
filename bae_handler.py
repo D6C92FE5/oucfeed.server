@@ -11,4 +11,8 @@ os.chdir(os.path.dirname(__file__))
 sys.path.insert(0, '.')
 
 
-from oucfeed.server import app as application
+from bae.core.wsgi import WSGIApplication
+from oucfeed.server import app
+
+
+application = WSGIApplication(app)
