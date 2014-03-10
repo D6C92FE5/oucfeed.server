@@ -1,0 +1,7 @@
+{
+    "BAE_ID": "2315944",
+    "BAE_API_KEY": "1mT1I8g4hdF7XVNoenupDQzP",
+    "BAE_SECRET_KEY": "KrGiRcf4pYdh7NhyT7ukHFp1GP89b3AP",
+	"DATASTORE_URI": "mongodb://mongo.duapp.com:8908/",
+	"DATASTORE_NAME": "vbCNuBLFcxMsEqsWhIkp"
+}

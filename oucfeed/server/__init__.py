@@ -17,7 +17,12 @@ import cherrypy
 from oucfeed.server import route
 
 
-app = cherrypy.tree.mount(route.root, "", route.config)
+application = cherrypy.tree.mount(route.root, "", route.config)
+
+if config.PLATFORM == "BAE":
+    # noinspection PyUnresolvedReferences, PyPackageRequirements
+    from bae.core.wsgi import WSGIApplication
+    application = WSGIApplication(application)
 
 if __name__ == '__main__':
     if not config.PLATFORM:

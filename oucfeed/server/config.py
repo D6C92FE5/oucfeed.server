@@ -17,17 +17,7 @@ EXPORT_COUNT_MIN = 1
 EXPORT_COUNT_MAX = 50
 
 
-def load():
-    config_path = "config.json"
-    if os.path.exists(config_path):
-        with open(config_path, encoding='utf-8') as f:
-            config = json.load(f)
-        global_ = globals()
-        for k in config:
-            global_[k] = config[k]
-load()
-
-
+# noinspection PyUnresolvedReferences, PyPackageRequirements
 def detect_platform():
     global PLATFORM
     if not PLATFORM:
@@ -41,3 +31,14 @@ def detect_platform():
             except ImportError:
                 pass
 detect_platform()
+
+
+def load(config_path):
+    if os.path.exists(config_path):
+        with open(config_path, encoding='utf-8') as f:
+            config = json.load(f)
+        global_ = globals()
+        for k in config:
+            global_[k] = config[k]
+load("config.json")
+load("config.{}.json".format(PLATFORM))

@@ -2,6 +2,8 @@
 
 from __future__ import division, absolute_import, print_function, unicode_literals
 
+import os
+
 import pymongo
 
 from oucfeed.server import config
@@ -21,11 +23,8 @@ class MongodbDatastore(BaseDatastore):
             self._db = client[config.DATASTORE_NAME]
 
             if config.PLATFORM == "BAE":
-                auth = getattr(config, 'DATASTORE_AUTHENTICATE')
-                if auth:
-                    self.db.authenticate(**auth)
-                else:
-                    pass  # FIXME: 提示错误
+                # noinspection PyUnresolvedReferences
+                self._db.authenticate(config.BAE_API_KEY, config.BAE_SECRET_KEY)
         return self._db
 
     def _select(self, table, where=None, **kwargs):

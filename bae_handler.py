@@ -6,13 +6,10 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 import os
 import sys
 
-
-os.chdir(os.path.dirname(__file__))
-sys.path.insert(0, '.')
-
-
-from bae.core.wsgi import WSGIApplication
-from oucfeed.server import app
+app_root = os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, app_root)
+os.chdir(app_root)
 
 
-application = WSGIApplication(app)
+# noinspection PyUnresolvedReferences
+from oucfeed.server import application
