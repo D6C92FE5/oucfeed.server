@@ -12,15 +12,21 @@ class MongodbDatastore(BaseDatastore):
 
     # noinspection PyMissingConstructor
     def __init__(self):
-        client = pymongo.MongoClient(config.DATASTORE_URI)
-        self.db = client[config.DATASTORE_NAME]
+        self._db = None
 
-        if config.PLATFORM == "BAE":
-            auth = getattr(config, 'DATASTORE_AUTHENTICATE')
-            if auth:
-                self.db.authenticate(**auth)
-            else:
-                pass  # FIXME: 提示错误
+    @property
+    def db(self):
+        if not self._db:
+            client = pymongo.MongoClient(config.DATASTORE_URI)
+            self._db = client[config.DATASTORE_NAME]
+
+            if config.PLATFORM == "BAE":
+                auth = getattr(config, 'DATASTORE_AUTHENTICATE')
+                if auth:
+                    self.db.authenticate(**auth)
+                else:
+                    pass  # FIXME: 提示错误
+        return self._db
 
     def _select(self, table, where=None, **kwargs):
         return self.db[table].find(where, **kwargs)
