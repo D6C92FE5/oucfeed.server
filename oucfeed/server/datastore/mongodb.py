@@ -2,7 +2,7 @@
 
 from __future__ import division, absolute_import, print_function, unicode_literals
 
-import os
+import json
 
 import pymongo
 
@@ -37,11 +37,11 @@ class MongodbDatastore(BaseDatastore):
             self.db[table].save(item)
 
     def _get_misc(self, key, default=None):
-        item = next(self._select('misc', {'key': key}), {})
-        return item.get('value', default)
+        item = next(self._select('misc', {'key': key}), None)
+        return json.loads(item['value']) if item is not None else default
 
     def _set_misc(self, key, value):
-        item = {'key': key, 'value': value}
+        item = {'key': key, 'value': json.dumps(value)}
         self._insert_or_update('misc', item)
 
     # news
