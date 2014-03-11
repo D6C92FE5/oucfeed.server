@@ -5,7 +5,7 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 import json
 import hashlib
 import base64
-from datetime import datetime
+import threading
 
 from oucfeed.server import config
 
@@ -33,7 +33,10 @@ def parse_output_count(string):
 
 
 def parse_datetime(datetime_string):
-    return datetime.strptime(datetime_string, "%Y-%m-%d %H:%M:%S")
+    with lock:
+        from datetime import datetime
+        return datetime.strptime(datetime_string, "%Y-%m-%d %H:%M:%S")
+lock = threading.Lock()
 
 
 def remove_mongodb_id(items):
