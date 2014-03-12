@@ -52,7 +52,10 @@
             this.ajaxJSON("profile", callback, profile)
         },
         getFeedUrl: function(profile_id, feed_type) {
-            feed_type = feed_type || 'rss'
+            feed_type = (feed_type || 'rss').toLowerCase()
+            if (feed_type === 'json') {
+                feed_type = 'news'
+            }
             return this.root + feed_type + '/' + profile_id
         }
     }
