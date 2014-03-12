@@ -27,6 +27,11 @@ OUC Feed - Server
 * [PyMongo](https://pypi.python.org/pypi/pymongo/)
 
 
+文档
+====================
+
+* [教程 - 生成订阅源链接](https://github.com/D6C92FE5/oucfeed.server/blob/master/doc/tutorial_generate_feed_url.md)
+
 许可证
 ====================
 
