@@ -30,9 +30,11 @@ class MongodbDatastore(BaseDatastore):
     def _select(self, table, where=None, **kwargs):
         return self.db[table].find(where, **kwargs)
 
-    def _insert_or_update(self, table, item):
+    def _insert_or_update(self, table, item, unique_field=None):
         if isinstance(item, list):
             self.db[table].insert(item)
+        elif unique_field is not None:
+            self.db[table].find_and_modify({unique_field: item[unique_field]}, item, upsert=True)
         else:
             self.db[table].save(item)
 
@@ -42,7 +44,7 @@ class MongodbDatastore(BaseDatastore):
 
     def _set_misc(self, key, value):
         item = {'key': key, 'value': json.dumps(value)}
-        self._insert_or_update('misc', item)
+        self._insert_or_update('misc', item, unique_field='key')
 
     # news
 
@@ -69,6 +71,9 @@ class MongodbDatastore(BaseDatastore):
         self._set_misc('category', category)
 
     # profile
+
+    def set_profile(self, profile):
+        self._insert_or_update('profile', profile, unique_field='id')
 
     def get_profile_by_id(self, profile_id):
         item = next(self.get_profile({'id': profile_id}), {})
