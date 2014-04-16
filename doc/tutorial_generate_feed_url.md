@@ -77,7 +77,7 @@ _使用 RESTful Web API 生成订阅源链接时，往返于服务器之间的�
         "id": "osxqL42lv9avLG1JFeO-oa2DQOQ"
     }
 
-这样我们就得到了分类标识 `osxqL42lv9avLG1JFeO` 。
+这样我们就得到了分类标识 `osxqL42lv9avLG1JFeO-oa2DQOQ` 。
 
 #### 根据分类标识生成订阅链接
 
@@ -91,9 +91,9 @@ _使用 RESTful Web API 生成订阅源链接时，往返于服务器之间的�
 
 对于上一步的标识，订阅链接就是：
 
-    http://oucfeed.duapp.com/rss/osxqL42lv9avLG1JFeO
-    http://oucfeed.duapp.com/atom/osxqL42lv9avLG1JFeO
-    http://oucfeed.duapp.com/news/osxqL42lv9avLG1JFeO
+    http://oucfeed.duapp.com/rss/osxqL42lv9avLG1JFeO-oa2DQOQ
+    http://oucfeed.duapp.com/atom/osxqL42lv9avLG1JFeO-oa2DQOQ
+    http://oucfeed.duapp.com/news/osxqL42lv9avLG1JFeO-oa2DQOQ
     
 可以把这些链接提供给支持相应格式的阅读器。
 
