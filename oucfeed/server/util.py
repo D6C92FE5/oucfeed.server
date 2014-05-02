@@ -6,6 +6,7 @@ import json
 import hashlib
 import base64
 import threading
+import urllib
 
 from oucfeed.server import config
 
@@ -43,3 +44,7 @@ def remove_mongodb_id(items):
     for item in items:
         del item['_id']
         yield item
+
+
+def url_decode(url):
+    return urllib.unquote(url)
